@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Campus Consult</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #14b8a6;
+      --primary-dark: #0f8f82;
+      --primary-soft: #dffaf6;
+      --bg: #f6fffd;
+      --white: #ffffff;
+      --text: #1c2430;
+      --muted: #73808c;
+      --border: rgba(20,184,166,0.14);
+      --shadow: 0 20px 40px rgba(20,184,166,0.12);
+      --radius: 28px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f8fffe 0%, #ebfffb 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    .container {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1.618fr 1fr;
+      align-items: center;
+      gap: 40px;
+      padding: 40px;
+    }
+
+    .hero {
+      padding: 20px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary-dark);
+      font-weight: 600;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 5vw, 5rem);
+      line-height: 1.05;
+      margin-bottom: 24px;
+      max-width: 700px;
+    }
+
+    .hero p {
+      max-width: 620px;
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 1.05rem;
+      margin-bottom: 36px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(220px,1fr));
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: rgba(255,255,255,.88);
+      border: 1px solid rgba(255,255,255,.9);
+      padding: 24px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .feature-card h3 {
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+
+    .feature-card p {
+      margin: 0;
+      font-size: .93rem;
+      line-height: 1.8;
+    }
+
+    .login-box {
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(255,255,255,.95);
+      border-radius: 36px;
+      padding: 42px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      width: 100%;
+      max-width: 430px;
+      justify-self: center;
+    }
+
+    .logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, var(--primary), #5eead4);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 26px;
+      box-shadow: 0 16px 30px rgba(20,184,166,0.22);
+    }
+
+    .login-box h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .login-box p {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: .95rem;
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 15px 16px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      outline: none;
+      background: rgba(255,255,255,.9);
+      color: var(--text);
+      transition: .25s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(20,184,166,.1);
+    }
+
+    .login-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+      gap: 14px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .remember {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .remember input {
+      width: auto;
+    }
+
+    .forgot {
+      color: var(--primary-dark);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--primary), #0f9d90);
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: .3s ease;
+      box-shadow: 0 18px 30px rgba(20,184,166,.22);
+    }
+
+    .btn-login:hover {
+      transform: translateY(-2px);
+    }
+
+    .footer-text {
+      margin-top: 26px;
+      text-align: center;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: var(--primary);
+      color: white;
+      padding: 16px 22px;
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      transform: translateY(140px);
+      transition: .4s ease;
+      z-index: 999;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+    }
+
+    @media(max-width: 980px){
+      .container {
+        grid-template-columns: 1fr;
+        padding: 24px;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .login-box {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<div class="container">
+
+  <div class="hero">
+    <div class="badge">
+      ● Smart Consultation Academic System
+    </div>
+
+    <h1>
+      Sistem konsultasi akademik modern untuk mahasiswa dan dosen.
+    </h1>
+
+    <p>
+      Platform digital untuk mengatur jadwal konsultasi, pengajuan bimbingan,
+      absensi akademik, dan monitoring aktivitas kampus secara lebih terstruktur,
+      modern, serta efisien.
+    </p>
+
+    <div class="feature-grid">
+
+      <div class="feature-card">
+        <h3>Dashboard Akademik</h3>
+        <p>
+          Monitoring aktivitas konsultasi secara real-time dengan tampilan modern.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Kalender Otomatis</h3>
+        <p>
+          Pengaturan jadwal konsultasi lebih rapi dan terorganisir.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Pengajuan Digital</h3>
+        <p>
+          Mahasiswa dapat mengirim pengajuan konsultasi secara online.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <h3>UI Modern</h3>
+        <p>
+          Desain minimalis dengan kombinasi warna putih dan hijau toska.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="login-box">
+
+    <div class="logo">CC</div>
+
+    <h2>Masuk Sistem</h2>
+    <p>
+      Login menggunakan akun mahasiswa atau dosen.
+    </p>
+
+    <div class="form-group">
+      <label>Role Pengguna</label>
+      <select id="role">
+        <option>Mahasiswa</option>
+        <option>Dosen</option>
+        <option>Admin</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Email / NIM / NIP</label>
+      <input type="text" id="username" placeholder="Masukkan akun">
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="password" placeholder="Masukkan password">
+    </div>
+
+    <div class="login-options">
+      <div class="remember">
+        <input type="checkbox">
+        <span>Ingat saya</span>
+      </div>
+
+      <a href="#" class="forgot">Lupa Password?</a>
+    </div>
+
+    <button class="btn-login" onclick="login()">
+      Masuk Dashboard
+    </button>
+
+    <div class="footer-text">
+      © 2026 Campus Consult System
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  function login(){
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const role = document.getElementById('role').value;
+
+    if(username === '' || password === ''){
+      showToast('Silakan lengkapi akun dan password');
+      return;
+    }
+
+    showToast('Login berhasil sebagai ' + role);
+
+    setTimeout(() => {
+      window.location.href = 'dashboard.html';
+    }, 1200);
+  }
+
+  function showToast(message){
+    const toast = document.getElementById('toast');
+
+    toast.innerText = message;
+    toast.classList.add('show');
+
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2500);
+  }
+</script>
+
+</body>
+</html>
