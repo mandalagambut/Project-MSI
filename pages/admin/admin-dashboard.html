@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin | Narasa</title>
+
+    <link rel="stylesheet" href="admin-dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <h2>NARASA</h2>
+                <span>Admin</span>
+            </div>
+            <button class="close-sidebar" onclick="toggleSidebar()">✕</button>
+        </div>
+
+        <nav class="menu">
+            <a href="#" class="active">📊 Dashboard</a>
+            <a href="kelola-mahasiswa.html">👨‍🎓 Kelola Mahasiswa</a>
+            <a href="kelola-dosen.html">👨‍🏫 Kelola Dosen</a>
+            <a href="kelola-konsultasi.html">📋 Kelola Konsultasi</a>
+            <a href="laporan.html">📈 Laporan</a>
+            <a href="pengaturan.html">⚙️ Pengaturan</a>
+            <a href="admin-profil.html">👤 Profil</a>
+            <a href="../../index.html" onclick="logout()">🚪 Logout</a>
+        </nav>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="hamburger" onclick="toggleSidebar()">☰</button>
+                <div>
+                    <h1>Dashboard Admin</h1>
+                    <p id="namaAdmin">Administrator</p>
+                </div>
+            </div>
+            <div class="topbar-actions">
+                <button onclick="toggleTheme()" class="theme-btn">🌓</button>
+                <button onclick="refreshData()" class="refresh-btn" title="Refresh Data">🔄</button>
+                <button onclick="exportData()" class="export-btn" title="Export Data">📥</button>
+            </div>
+        </header>
+
+        <!-- STATISTIK -->
+        <section class="stats">
+            <div class="card stat">
+                <p>👨‍🎓 Total Mahasiswa</p>
+                <h2 id="totalMahasiswa">156</h2>
+            </div>
+            <div class="card stat">
+                <p>👨‍🏫 Total Dosen</p>
+                <h2 id="totalDosen">24</h2>
+            </div>
+            <div class="card stat">
+                <p>📋 Total Konsultasi</p>
+                <h2 id="totalKonsultasi">89</h2>
+            </div>
+            <div class="card stat">
+                <p>🔄 Konsultasi Aktif</p>
+                <h2 id="konsultasiAktif">12</h2>
+            </div>
+        </section>
+
+                <!-- DASHBOARD GRID -->
+        <section class="dashboard-grid">
+
+            <!-- KALENDER -->
+            <div class="card">
+                <h3>📅 Kalender Konsultasi</h3>
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <button onclick="prevMonth()">‹</button>
+                        <span id="calendarMonth">Juni 2026</span>
+                        <button onclick="nextMonth()">›</button>
+                    </div>
+                    
+                    <div class="calendar-weekdays">
+                        <div class="calendar-weekday">Min</div>
+                        <div class="calendar-weekday">Sen</div>
+                        <div class="calendar-weekday">Sel</div>
+                        <div class="calendar-weekday">Rab</div>
+                        <div class="calendar-weekday">Kam</div>
+                        <div class="calendar-weekday">Jum</div>
+                        <div class="calendar-weekday">Sab</div>
+                    </div>
+                    
+                    <div class="calendar-days-grid" id="calendarDays"></div>
+                    
+                    <div class="calendar-legend">
+                        <span class="legend-item">
+                            <span class="legend-dot" style="background: #14b8a6;"></span>
+                            Ada Konsultasi
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-dot" style="background: #fef3c7;"></span>
+                            Menunggu
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-dot" style="background: var(--primary); border: 2px solid var(--primary);"></span>
+                            Hari Ini
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GRAFIK AKTIVITAS -->
+            <div class="card">
+                <h3>📊 Aktivitas Keseluruhan</h3>
+                <div class="chart-container">
+                    <canvas id="activityChart" width="300" height="200"></canvas>
+                </div>
+                <div class="chart-stats">
+                    <div class="chart-stat-item">
+                        <span class="stat-label">Total Aktivitas</span>
+                        <span class="stat-value" id="totalAktivitas">156</span>
+                    </div>
+                    <div class="chart-stat-item">
+                        <span class="stat-label">Minggu Ini</span>
+                        <span class="stat-value" id="aktivitasMingguIni">23</span>
+                    </div>
+                    <div class="chart-stat-item">
+                        <span class="stat-label">Bulan Ini</span>
+                        <span class="stat-value" id="aktivitasBulanIni">89</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STATISTIK PENGGUNA -->
+            <div class="card">
+                <h3>📈 Statistik Pengguna</h3>
+                <div class="user-stats">
+                    <div class="user-stat-item">
+                        <div class="user-stat-icon">👨‍🎓</div>
+                        <div>
+                            <span class="user-stat-label">Mahasiswa</span>
+                            <span class="user-stat-value">156</span>
+                            <div class="user-stat-bar">
+                                <div class="user-stat-bar-fill" style="width: 86%; background: #14b8a6;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-stat-item">
+                        <div class="user-stat-icon">👨‍🏫</div>
+                        <div>
+                            <span class="user-stat-label">Dosen</span>
+                            <span class="user-stat-value">24</span>
+                            <div class="user-stat-bar">
+                                <div class="user-stat-bar-fill" style="width: 14%; background: #0f766e;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-stat-item">
+                        <div class="user-stat-icon">📊</div>
+                        <div>
+                            <span class="user-stat-label">Konsultasi</span>
+                            <span class="user-stat-value">89</span>
+                            <div class="user-stat-bar">
+                                <div class="user-stat-bar-fill" style="width: 57%; background: #0891b2;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AKTIVITAS TERBARU -->
+            <div class="card">
+                <h3>📋 Aktivitas Terbaru</h3>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">📝</div>
+                        <div class="activity-info">
+                            <h4>Pengajuan Baru</h4>
+                            <p>Mahasiswa A - Media Pembelajaran</p>
+                            <span class="time">10 menit lalu</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">✅</div>
+                        <div class="activity-info">
+                            <h4>Konsultasi Disetujui</h4>
+                            <p>Mahasiswa B - E-Learning</p>
+                            <span class="time">1 jam lalu</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">👤</div>
+                        <div class="activity-info">
+                            <h4>Dosen Baru Terdaftar</h4>
+                            <p>Dosen F - Teknologi Pendidikan</p>
+                            <span class="time">3 jam lalu</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">📊</div>
+                        <div class="activity-info">
+                            <h4>Konsultasi Selesai</h4>
+                            <p>Mahasiswa C - Desain Pembelajaran</p>
+                            <span class="time">5 jam lalu</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">📈</div>
+                        <div class="activity-info">
+                            <h4>Laporan Bulanan</h4>
+                            <p>Data konsultasi Juni 2026</p>
+                            <span class="time">8 jam lalu</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="admin-dashboard.js"></script>
+
+</body>
+</html>

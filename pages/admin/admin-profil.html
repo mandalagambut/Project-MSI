@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Admin | Narasa</title>
+
+    <link rel="stylesheet" href="admin-profil.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <h2>NARASA</h2>
+                <span>Admin</span>
+            </div>
+            <button class="close-sidebar" onclick="toggleSidebar()">✕</button>
+        </div>
+
+        <nav class="menu">
+            <a href="admin-dashboard.html">📊 Dashboard</a>
+            <a href="kelola-mahasiswa.html">👨‍🎓 Kelola Mahasiswa</a>
+            <a href="kelola-dosen.html">👨‍🏫 Kelola Dosen</a>
+            <a href="kelola-konsultasi.html">📋 Kelola Konsultasi</a>
+            <a href="laporan.html">📈 Laporan</a>
+            <a href="pengaturan.html">⚙️ Pengaturan</a>
+            <a href="#" class="active">👤 Profil</a>
+            <a href="../../index.html" onclick="logout()">🚪 Logout</a>
+        </nav>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="hamburger" onclick="toggleSidebar()">☰</button>
+                <div>
+                    <h1>👤 Profil Admin</h1>
+                    <p id="namaAdmin">Administrator</p>
+                </div>
+            </div>
+            <div class="topbar-actions">
+                <button onclick="toggleTheme()" class="theme-btn">🌓</button>
+                <button onclick="saveProfile()" class="save-btn">💾 Simpan</button>
+            </div>
+        </header>
+
+        <!-- PROFIL CONTENT -->
+        <section class="profile-section">
+            <div class="card profile-card">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <div class="avatar-circle" id="avatarCircle">
+                            <span id="avatarInitial">A</span>
+                        </div>
+                        <div class="avatar-actions">
+                            <button onclick="changeAvatar()" class="avatar-btn">📷 Ganti Foto</button>
+                        </div>
+                    </div>
+                    <div class="profile-title">
+                        <h2 id="profileName">Administrator</h2>
+                        <p class="profile-role">👨‍💼 Administrator</p>
+                        <span class="profile-status active">🟢 Aktif</span>
+                    </div>
+                </div>
+
+                <div class="profile-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="namaLengkap">Nama Lengkap</label>
+                            <input type="text" id="namaLengkap" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="nipAdmin">NIP Admin</label>
+                            <input type="text" id="nipAdmin" class="form-control" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="telepon">Nomor Telepon</label>
+                            <input type="tel" id="telepon" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="jabatan">Jabatan</label>
+                            <input type="text" id="jabatan" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="departemen">Departemen</label>
+                            <input type="text" id="departemen" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tanggalBergabung">Tanggal Bergabung</label>
+                            <input type="date" id="tanggalBergabung" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select id="status" class="form-control">
+                                <option value="aktif" selected>Aktif</option>
+                                <option value="nonaktif">Nonaktif</option>
+                                <option value="cuti">Cuti</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="alamat">Alamat</label>
+                            <textarea id="alamat" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STATISTIK SISTEM -->
+            <div class="card stats-card">
+                <h3>📊 Statistik Sistem</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-icon">📝</span>
+                        <div>
+                            <span class="stat-label">Total Aktivitas</span>
+                            <span class="stat-number" id="totalAktivitasAkun">156</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">📋</span>
+                        <div>
+                            <span class="stat-label">Konsultasi Dikelola</span>
+                            <span class="stat-number" id="konsultasiDikelola">89</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">👨‍🎓</span>
+                        <div>
+                            <span class="stat-label">Mahasiswa Terdaftar</span>
+                            <span class="stat-number" id="mahasiswaTerdaftar">156</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">👨‍🏫</span>
+                        <div>
+                            <span class="stat-label">Dosen Terdaftar</span>
+                            <span class="stat-number" id="dosenTerdaftar">24</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AKTIVITAS TERAKHIR -->
+            <div class="card activity-card">
+                <h3>🕐 Aktivitas Terakhir</h3>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">✅</div>
+                        <div class="activity-info">
+                            <h4>Login</h4>
+                            <p>Berhasil login ke sistem</p>
+                            <span class="time">10 menit lalu</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">📝</div>
+                        <div class="activity-info">
+                            <h4>Menyetujui Pengajuan</h4>
+                            <p>Pengajuan konsultasi Mahasiswa A</p>
+                            <span class="time">1 jam lalu</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">👤</div>
+                        <div class="activity-info">
+                            <h4>Menambahkan Dosen</h4>
+                            <p>Dosen F - Teknologi Pendidikan</p>
+                            <span class="time">3 jam lalu</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">📊</div>
+                        <div class="activity-info">
+                            <h4>Membuat Laporan</h4>
+                            <p>Laporan bulan Juni 2026</p>
+                            <span class="time">5 jam lalu</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+<script src="admin-profil.js"></script>
+
+</body>
+</html>

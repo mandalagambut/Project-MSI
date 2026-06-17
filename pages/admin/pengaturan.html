@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengaturan | Narasa</title>
+
+    <link rel="stylesheet" href="pengaturan.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <h2>NARASA</h2>
+                <span>Admin</span>
+            </div>
+            <button class="close-sidebar" onclick="toggleSidebar()">✕</button>
+        </div>
+
+        <nav class="menu">
+            <a href="admin-dashboard.html">📊 Dashboard</a>
+            <a href="kelola-mahasiswa.html">👨‍🎓 Kelola Mahasiswa</a>
+            <a href="kelola-dosen.html">👨‍🏫 Kelola Dosen</a>
+            <a href="kelola-konsultasi.html">📋 Kelola Konsultasi</a>
+            <a href="laporan.html">📈 Laporan</a>
+            <a href="#" class="active">⚙️ Pengaturan</a>
+            <a href="admin-profil.html">👤 Profil</a>
+            <a href="../../index.html" onclick="logout()">🚪 Logout</a>
+        </nav>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="hamburger" onclick="toggleSidebar()">☰</button>
+                <div>
+                    <h1>⚙️ Pengaturan</h1>
+                    <p id="namaAdmin">Administrator</p>
+                </div>
+            </div>
+            <div class="topbar-actions">
+                <button onclick="toggleTheme()" class="theme-btn">🌓</button>
+                <button onclick="saveSettings()" class="save-btn">💾 Simpan</button>
+            </div>
+        </header>
+
+        <!-- PENGATURAN -->
+        <section class="settings-section">
+            <!-- Tema -->
+            <div class="card settings-card">
+                <h3>🎨 Tema</h3>
+                <div class="settings-group">
+                    <div class="settings-option">
+                        <label class="settings-label">Mode Tema</label>
+                        <div class="theme-options">
+                            <button onclick="setTheme('light')" class="theme-option" id="themeLight">
+                                ☀️ Light
+                            </button>
+                            <button onclick="setTheme('dark')" class="theme-option" id="themeDark">
+                                🌙 Dark
+                            </button>
+                            <button onclick="setTheme('system')" class="theme-option" id="themeSystem">
+                                💻 System
+                            </button>
+                        </div>
+                        <small class="form-text">Pilih tema yang Anda inginkan untuk tampilan sistem</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notifikasi -->
+            <div class="card settings-card">
+                <h3>🔔 Notifikasi</h3>
+                <div class="settings-group">
+                    <div class="settings-item">
+                        <div class="settings-item-info">
+                            <h4>Notifikasi Email</h4>
+                            <p>Terima notifikasi melalui email</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="notifEmail" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-item">
+                        <div class="settings-item-info">
+                            <h4>Notifikasi Pengajuan</h4>
+                            <p>Notifikasi saat ada pengajuan baru</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="notifPengajuan" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-item">
+                        <div class="settings-item-info">
+                            <h4>Notifikasi Sistem</h4>
+                            <p>Notifikasi terkait sistem</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="notifSistem" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Keamanan -->
+            <div class="card settings-card">
+                <h3>🔒 Keamanan</h3>
+                <div class="settings-group">
+                    <div class="settings-item">
+                        <div class="settings-item-info">
+                            <h4>Ganti Password</h4>
+                            <p>Ubah password akun Anda</p>
+                        </div>
+                        <button onclick="changePassword()" class="btn-password">🔑 Ganti Password</button>
+                    </div>
+                    <div class="settings-item">
+                        <div class="settings-item-info">
+                            <h4>Session Timeout</h4>
+                            <p>Otomatis logout setelah tidak aktif</p>
+                        </div>
+                        <select id="sessionTimeout" class="form-control" style="width:150px;">
+                            <option value="30">30 Menit</option>
+                            <option value="60" selected>60 Menit</option>
+                            <option value="120">120 Menit</option>
+                            <option value="0">Tidak Pernah</option>
+                        </select>
+                    </div>
+                    <div class="settings-item">
+                        <div class="settings-item-info">
+                            <h4>Two-Factor Authentication</h4>
+                            <p>Keamanan tambahan dengan 2FA</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="twoFactor">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data -->
+            <div class="card settings-card">
+                <h3>💾 Data</h3>
+                <div class="settings-group">
+                    <div class="settings-item">
+                        <div class="settings-item-info">
+                            <h4>Backup Data</h4>
+                            <p>Backup semua data sistem</p>
+                        </div>
+                        <button onclick="backupData()" class="btn-backup">📥 Backup</button>
+                    </div>
+                    <div class="settings-item">
+                        <div class="settings-item-info">
+                            <h4>Reset Data</h4>
+                            <p>Hapus semua data sistem</p>
+                        </div>
+                        <button onclick="resetData()" class="btn-danger">🗑️ Reset Data</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+<script src="pengaturan.js"></script>
+
+</body>
+</html>

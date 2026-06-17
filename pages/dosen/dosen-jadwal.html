@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal Konsultasi | Narasa</title>
+
+    <link rel="stylesheet" href="dosen-jadwal.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <h2>NARASA</h2>
+                <span>Dosen</span>
+            </div>
+            <button class="close-sidebar" onclick="toggleSidebar()">✕</button>
+        </div>
+
+        <nav class="menu">
+            <a href="dosen-dashboard.html">📊 Dashboard</a>
+            <a href="dosen-konsultasi.html">📝 Kelola Pengajuan</a>
+            <a href="#" class="active">📅 Jadwal Konsultasi</a>
+            <a href="dosen-riwayat.html">📋 Riwayat Konsultasi</a>
+            <a href="dosen-notifikasi.html">🔔 Notifikasi</a>
+            <a href="dosen-profil.html">👤 Profil</a>
+            <a href="../../index.html" onclick="logout()">🚪 Logout</a>
+        </nav>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="hamburger" onclick="toggleSidebar()">☰</button>
+                <div>
+                    <h1>📅 Jadwal Konsultasi</h1>
+                    <p id="namaDosen">User</p>
+                </div>
+            </div>
+            <div class="topbar-actions">
+                <button onclick="toggleTheme()" class="theme-btn">🌓</button>
+                <button onclick="refreshData()" class="refresh-btn">🔄</button>
+                <button onclick="exportJadwal()" class="export-btn">📥 Export</button>
+            </div>
+        </header>
+
+        <!-- STATISTIK JADWAL -->
+        <section class="stats">
+            <div class="card stat">
+                <p>📅 Total Jadwal</p>
+                <h2 id="totalJadwal">8</h2>
+            </div>
+            <div class="card stat">
+                <p>🔄 Hari Ini</p>
+                <h2 id="jadwalHariIni">2</h2>
+            </div>
+            <div class="card stat">
+                <p>📆 Minggu Ini</p>
+                <h2 id="jadwalMingguIni">5</h2>
+            </div>
+            <div class="card stat">
+                <p>✅ Selesai</p>
+                <h2 id="jadwalSelesai">3</h2>
+            </div>
+        </section>
+
+        <!-- KALENDER -->
+        <div class="card calendar-card">
+            <h3>📅 Kalender Konsultasi</h3>
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button onclick="prevMonth()">‹</button>
+                    <span id="calendarMonth">Juni 2026</span>
+                    <button onclick="nextMonth()">›</button>
+                </div>
+                <div class="calendar-weekdays">
+                    <div class="calendar-weekday">Min</div>
+                    <div class="calendar-weekday">Sen</div>
+                    <div class="calendar-weekday">Sel</div>
+                    <div class="calendar-weekday">Rab</div>
+                    <div class="calendar-weekday">Kam</div>
+                    <div class="calendar-weekday">Jum</div>
+                    <div class="calendar-weekday">Sab</div>
+                </div>
+                <div class="calendar-days-grid" id="calendarDays"></div>
+                <div class="calendar-legend">
+                    <span class="legend-item"><span class="legend-dot" style="background: #14b8a6;"></span> Ada Konsultasi</span>
+                    <span class="legend-item"><span class="legend-dot" style="background: #fef3c7;"></span> Menunggu</span>
+                    <span class="legend-item"><span class="legend-dot" style="background: var(--primary); border: 2px solid var(--primary);"></span> Hari Ini</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- DAFTAR JADWAL -->
+        <section class="jadwal-section">
+            <div class="card jadwal-card">
+                <div class="jadwal-header">
+                    <h3>Daftar Jadwal Konsultasi</h3>
+                    <div class="jadwal-header-actions">
+                        <span class="total-count" id="totalCount">0 jadwal</span>
+                        <select id="filterJadwal" class="form-control" onchange="applyJadwalFilter()" style="width:auto;padding:8px 30px 8px 12px;">
+                            <option value="semua">Semua</option>
+                            <option value="hari-ini">Hari Ini</option>
+                            <option value="minggu-ini">Minggu Ini</option>
+                            <option value="selesai">Selesai</option>
+                            <option value="akan-datang">Akan Datang</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="jadwalList">
+                    <!-- Diisi oleh JavaScript -->
+                    <div class="empty-state" id="emptyState">
+                        <div class="empty-icon">📅</div>
+                        <h4>Belum Ada Jadwal</h4>
+                        <p>Belum ada jadwal konsultasi yang tersedia.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+<script src="dosen-jadwal.js"></script>
+
+</body>
+</html>

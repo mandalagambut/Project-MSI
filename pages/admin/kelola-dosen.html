@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Dosen | Narasa</title>
+
+    <link rel="stylesheet" href="kelola-dosen.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <h2>NARASA</h2>
+                <span>Admin</span>
+            </div>
+            <button class="close-sidebar" onclick="toggleSidebar()">✕</button>
+        </div>
+
+        <nav class="menu">
+            <a href="admin-dashboard.html">📊 Dashboard</a>
+            <a href="kelola-mahasiswa.html">👨‍🎓 Kelola Mahasiswa</a>
+            <a href="#" class="active">👨‍🏫 Kelola Dosen</a>
+            <a href="kelola-konsultasi.html">📋 Kelola Konsultasi</a>
+            <a href="laporan.html">📈 Laporan</a>
+            <a href="pengaturan.html">⚙️ Pengaturan</a>
+            <a href="admin-profil.html">👤 Profil</a>
+            <a href="../../index.html" onclick="logout()">🚪 Logout</a>
+        </nav>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="hamburger" onclick="toggleSidebar()">☰</button>
+                <div>
+                    <h1>👨‍🏫 Kelola Dosen</h1>
+                    <p id="namaAdmin">Administrator</p>
+                </div>
+            </div>
+            <div class="topbar-actions">
+                <button onclick="toggleTheme()" class="theme-btn">🌓</button>
+                <button onclick="showTambahDosen()" class="add-btn">➕ Tambah</button>
+                <button onclick="exportDosen()" class="export-btn">📥 Export</button>
+            </div>
+        </header>
+
+        <!-- STATISTIK -->
+        <section class="stats">
+            <div class="card stat">
+                <p>👨‍🏫 Total Dosen</p>
+                <h2 id="totalDosen">24</h2>
+            </div>
+            <div class="card stat">
+                <p>🟢 Aktif</p>
+                <h2 id="aktifDosen">20</h2>
+            </div>
+            <div class="card stat">
+                <p>🟡 Cuti</p>
+                <h2 id="cutiDosen">2</h2>
+            </div>
+            <div class="card stat">
+                <p>🔴 Nonaktif</p>
+                <h2 id="nonaktifDosen">2</h2>
+            </div>
+        </section>
+
+        <!-- FILTER -->
+        <div class="filter-section">
+            <div class="card filter-card">
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label for="filterStatusDsn">Status</label>
+                        <select id="filterStatusDsn" class="form-control" onchange="applyFilterDsn()">
+                            <option value="semua">Semua Status</option>
+                            <option value="aktif">🟢 Aktif</option>
+                            <option value="cuti">🟡 Cuti</option>
+                            <option value="nonaktif">🔴 Nonaktif</option>
+                            <option value="pensiun">📌 Pensiun</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filterBidangDsn">Bidang Keahlian</label>
+                        <select id="filterBidangDsn" class="form-control" onchange="applyFilterDsn()">
+                            <option value="semua">Semua Bidang</option>
+                            <option value="Teknologi Pendidikan">Teknologi Pendidikan</option>
+                            <option value="Pendidikan Bahasa">Pendidikan Bahasa</option>
+                            <option value="Pendidikan Matematika">Pendidikan Matematika</option>
+                            <option value="Bimbingan Konseling">Bimbingan Konseling</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="searchDsn">Cari</label>
+                        <input type="text" id="searchDsn" class="form-control" placeholder="Cari nama atau NIP..." oninput="applyFilterDsn()">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DAFTAR DOSEN -->
+        <section class="dosen-section">
+            <div class="card dosen-card">
+                <div class="dosen-header">
+                    <h3>Daftar Dosen</h3>
+                    <span class="total-count" id="totalCount">0 dosen</span>
+                </div>
+                <div id="dosenList">
+                    <!-- Diisi oleh JavaScript -->
+                    <div class="empty-state" id="emptyState">
+                        <div class="empty-icon">👨‍🏫</div>
+                        <h4>Belum Ada Dosen</h4>
+                        <p>Belum ada data dosen yang terdaftar.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+<!-- MODAL TAMBAH/EDIT DOSEN -->
+<div class="modal-overlay" id="modalDosen" style="display: none;">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 id="modalTitleDosen">Tambah Dosen</h3>
+            <button class="modal-close" onclick="closeModalDosen()">✕</button>
+        </div>
+        <div class="modal-body">
+            <form id="formDosen">
+                <input type="hidden" id="editIdDosen" value="">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nama Lengkap <span class="required">*</span></label>
+                        <input type="text" id="dsnNama" class="form-control" placeholder="Masukkan nama lengkap" required>
+                    </div>
+                    <div class="form-group">
+                        <label>NIP <span class="required">*</span></label>
+                        <input type="text" id="dsnNip" class="form-control" placeholder="Masukkan NIP" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="dsnEmail" class="form-control" placeholder="Masukkan email">
+                    </div>
+                    <div class="form-group">
+                        <label>Telepon</label>
+                        <input type="tel" id="dsnTelepon" class="form-control" placeholder="Masukkan nomor telepon">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Bidang Keahlian <span class="required">*</span></label>
+                        <select id="dsnBidang" class="form-control" required>
+                            <option value="">Pilih Bidang Keahlian</option>
+                            <option value="Teknologi Pendidikan">Teknologi Pendidikan</option>
+                            <option value="Pendidikan Bahasa">Pendidikan Bahasa</option>
+                            <option value="Pendidikan Matematika">Pendidikan Matematika</option>
+                            <option value="Bimbingan Konseling">Bimbingan Konseling</option>
+                            <option value="Psikologi Pendidikan">Psikologi Pendidikan</option>
+                            <option value="Manajemen Pendidikan">Manajemen Pendidikan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Jabatan Akademik</label>
+                        <select id="dsnJabatan" class="form-control">
+                            <option value="Asisten Ahli">Asisten Ahli</option>
+                            <option value="Lektor">Lektor</option>
+                            <option value="Lektor Kepala">Lektor Kepala</option>
+                            <option value="Profesor">Profesor</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Fakultas</label>
+                        <input type="text" id="dsnFakultas" class="form-control" placeholder="Masukkan fakultas">
+                    </div>
+                    <div class="form-group">
+                        <label>Status <span class="required">*</span></label>
+                        <select id="dsnStatus" class="form-control" required>
+                            <option value="aktif">🟢 Aktif</option>
+                            <option value="cuti">🟡 Cuti</option>
+                            <option value="nonaktif">🔴 Nonaktif</option>
+                            <option value="pensiun">📌 Pensiun</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label>Alamat</label>
+                        <textarea id="dsnAlamat" class="form-control" rows="2" placeholder="Masukkan alamat"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button onclick="closeModalDosen()" class="btn-reset">Batal</button>
+            <button onclick="saveDosen()" class="btn-submit">💾 Simpan</button>
+        </div>
+    </div>
+</div>
+
+<script src="kelola-dosen.js"></script>
+
+</body>
+</html>

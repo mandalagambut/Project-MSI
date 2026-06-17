@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Mahasiswa | Narasa</title>
+
+    <link rel="stylesheet" href="profil.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <h2>NARASA</h2>
+                <span>Mahasiswa</span>
+            </div>
+            <button class="close-sidebar" onclick="toggleSidebar()">✕</button>
+        </div>
+
+        <nav class="menu">
+            <a href="mahasiswa-dashboard.html">📊 Dashboard</a>
+            <a href="pengajuan.html">📝 Ajukan Konsultasi</a>
+            <a href="riwayat.html">📋 Riwayat Konsultasi</a>
+            <a href="notifikasi.html">🔔 Notifikasi</a>
+            <a href="#" class="active">👤 Profil</a>
+            <a href="../../index.html" onclick="logout()">🚪 Logout</a>
+        </nav>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="hamburger" onclick="toggleSidebar()">☰</button>
+                <div>
+                    <h1>👤 Profil Mahasiswa</h1>
+                    <p id="namaMahasiswa">User</p>
+                </div>
+            </div>
+            <div class="topbar-actions">
+                <button onclick="toggleTheme()" class="theme-btn">🌓</button>
+                <button onclick="saveProfile()" class="save-btn">💾 Simpan</button>
+            </div>
+        </header>
+
+        <!-- PROFIL CONTENT -->
+        <section class="profile-section">
+            <div class="card profile-card">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <div class="avatar-circle" id="avatarCircle">
+                            <span id="avatarInitial">M</span>
+                        </div>
+                        <div class="avatar-actions">
+                            <button onclick="changeAvatar()" class="avatar-btn">📷 Ganti Foto</button>
+                        </div>
+                    </div>
+                    <div class="profile-title">
+                        <h2 id="profileName">Mahasiswa</h2>
+                        <p class="profile-role">👨‍🎓 Mahasiswa</p>
+                        <span class="profile-status active">🟢 Aktif</span>
+                    </div>
+                </div>
+
+                <div class="profile-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="namaLengkap">Nama Lengkap</label>
+                            <input type="text" id="namaLengkap" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="nim">NIM</label>
+                            <input type="text" id="nim" class="form-control" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="telepon">Nomor Telepon</label>
+                            <input type="tel" id="telepon" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="programStudi">Program Studi</label>
+                            <input type="text" id="programStudi" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="angkatan">Angkatan</label>
+                            <input type="number" id="angkatan" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dosenPembimbing">Dosen Pembimbing</label>
+                            <input type="text" id="dosenPembimbing" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select id="status" class="form-control">
+                                <option value="aktif" selected>Aktif</option>
+                                <option value="cuti">Cuti</option>
+                                <option value="lulus">Lulus</option>
+                                <option value="dropout">Drop Out</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="alamat">Alamat</label>
+                            <textarea id="alamat" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STATISTIK AKADEMIK -->
+            <div class="card stats-card">
+                <h3>📊 Statistik Akademik</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-icon">📚</span>
+                        <div>
+                            <span class="stat-label">Total Konsultasi</span>
+                            <span class="stat-number" id="totalKonsultasi">8</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">✅</span>
+                        <div>
+                            <span class="stat-label">Konsultasi Selesai</span>
+                            <span class="stat-number" id="konsultasiSelesai">4</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">🔄</span>
+                        <div>
+                            <span class="stat-label">Konsultasi Berlangsung</span>
+                            <span class="stat-number" id="konsultasiBerlangsung">2</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">⏳</span>
+                        <div>
+                            <span class="stat-label">Menunggu</span>
+                            <span class="stat-number" id="konsultasiMenunggu">2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIWAYAT KONSULTASI TERAKHIR -->
+            <div class="card activity-card">
+                <h3>📋 Riwayat Konsultasi Terakhir</h3>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">📚</div>
+                        <div class="activity-info">
+                            <h4>Media Pembelajaran Digital</h4>
+                            <p>Dosen, M.Pd. - 15 Juni 2026</p>
+                            <span class="badge success">Selesai</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">📝</div>
+                        <div class="activity-info">
+                            <h4>E-Learning</h4>
+                            <p>Dosen, M.Pd. - 17 Juni 2026</p>
+                            <span class="badge pending">Menunggu</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">📊</div>
+                        <div class="activity-info">
+                            <h4>Desain Pembelajaran</h4>
+                            <p>Dosen, M.Pd. - 18 Juni 2026</p>
+                            <span class="badge success">Selesai</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+<script src="profil.js"></script>
+
+</body>
+</html>

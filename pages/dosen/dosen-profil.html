@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Dosen | Narasa</title>
+
+    <link rel="stylesheet" href="dosen-profil.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <h2>NARASA</h2>
+                <span>Dosen</span>
+            </div>
+            <button class="close-sidebar" onclick="toggleSidebar()">✕</button>
+        </div>
+
+        <nav class="menu">
+            <a href="dosen-dashboard.html">📊 Dashboard</a>
+            <a href="dosen-konsultasi.html">📝 Kelola Pengajuan</a>
+            <a href="dosen-jadwal.html">📅 Jadwal Konsultasi</a>
+            <a href="dosen-riwayat">📋 Riwayat Konsultasi</a>
+            <a href="dosen-notifikasi.html">🔔 Notifikasi</a>
+            <a href="#" class="active">👤 Profil</a>
+            <a href="../../index.html" onclick="logout()">🚪 Logout</a>
+        </nav>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="hamburger" onclick="toggleSidebar()">☰</button>
+                <div>
+                    <h1>👤 Profil Dosen</h1>
+                    <p id="namaDosen">User</p>
+                </div>
+            </div>
+            <div class="topbar-actions">
+                <button onclick="toggleTheme()" class="theme-btn">🌓</button>
+                <button onclick="saveProfile()" class="save-btn">💾 Simpan</button>
+            </div>
+        </header>
+
+        <!-- PROFIL CONTENT -->
+        <section class="profile-section">
+            <div class="card profile-card">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <div class="avatar-circle" id="avatarCircle">
+                            <span id="avatarInitial">D</span>
+                        </div>
+                        <div class="avatar-actions">
+                            <button onclick="changeAvatar()" class="avatar-btn">📷 Ganti Foto</button>
+                        </div>
+                    </div>
+                    <div class="profile-title">
+                        <h2 id="profileName">Dosen</h2>
+                        <p class="profile-role">👨‍🏫 Dosen</p>
+                        <span class="profile-status active">🟢 Aktif</span>
+                    </div>
+                </div>
+
+                <div class="profile-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="namaLengkap">Nama Lengkap</label>
+                            <input type="text" id="namaLengkap" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="nip">NIP</label>
+                            <input type="text" id="nip" class="form-control" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="telepon">Nomor Telepon</label>
+                            <input type="tel" id="telepon" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bidangKeahlian">Bidang Keahlian</label>
+                            <input type="text" id="bidangKeahlian" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="fakultas">Fakultas</label>
+                            <input type="text" id="fakultas" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="jabatanAkademik">Jabatan Akademik</label>
+                            <input type="text" id="jabatanAkademik" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select id="status" class="form-control">
+                                <option value="aktif" selected>Aktif</option>
+                                <option value="cuti">Cuti</option>
+                                <option value="pensiun">Pensiun</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="alamat">Alamat</label>
+                            <textarea id="alamat" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STATISTIK AKADEMIK DOSEN -->
+            <div class="card stats-card">
+                <h3>📊 Statistik Akademik</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-icon">📋</span>
+                        <div>
+                            <span class="stat-label">Total Pengajuan</span>
+                            <span class="stat-number" id="totalPengajuan">12</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">⏳</span>
+                        <div>
+                            <span class="stat-label">Menunggu Persetujuan</span>
+                            <span class="stat-number" id="menungguPersetujuan">3</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">📅</span>
+                        <div>
+                            <span class="stat-label">Konsultasi Hari Ini</span>
+                            <span class="stat-number" id="konsultasiHariIni">2</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">✅</span>
+                        <div>
+                            <span class="stat-label">Konsultasi Selesai</span>
+                            <span class="stat-number" id="konsultasiSelesai">7</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MAHASISWA BIMBINGAN -->
+            <div class="card activity-card">
+                <h3>👨‍🎓 Mahasiswa Bimbingan</h3>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">👨‍🎓</div>
+                        <div class="activity-info">
+                            <h4>Mahasiswa A</h4>
+                            <p>Media Pembelajaran - 2026</p>
+                            <span class="badge success">Aktif</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">👩‍🎓</div>
+                        <div class="activity-info">
+                            <h4>Mahasiswa B</h4>
+                            <p>E-Learning - 2026</p>
+                            <span class="badge pending">Menunggu</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">👨‍🎓</div>
+                        <div class="activity-info">
+                            <h4>Mahasiswa C</h4>
+                            <p>Desain Pembelajaran - 2025</p>
+                            <span class="badge success">Aktif</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">👩‍🎓</div>
+                        <div class="activity-info">
+                            <h4>Mahasiswa D</h4>
+                            <p>Evaluasi Pembelajaran - 2025</p>
+                            <span class="badge success">Aktif</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+<script src="dosen-profil.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Konsultasi | Narasa</title>
+
+    <link rel="stylesheet" href="../dashboard-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <h2>NARASA</h2>
+                <span>Dosen</span>
+            </div>
+            <button class="close-sidebar" onclick="toggleSidebar()">✕</button>
+        </div>
+
+        <nav class="menu">
+            <a href="dosen-dashboard.html">📊 Dashboard</a>
+            <a href="dosen-pengajuan.html">📝 Kelola Pengajuan</a>
+            <a href="jadwal-konsultasi.html">📅 Jadwal Konsultasi</a>
+            <a href="#" class="active">📋 Riwayat Konsultasi</a>
+            <a href="notifikasi-dosen.html">🔔 Notifikasi</a>
+            <a href="profil-dosen.html">👤 Profil</a>
+            <a href="../../index.html" onclick="logout()">🚪 Logout</a>
+        </nav>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="hamburger" onclick="toggleSidebar()">☰</button>
+                <div>
+                    <h1>📋 Riwayat Konsultasi</h1>
+                    <p id="namaDosen">User</p>
+                </div>
+            </div>
+            <div class="topbar-actions">
+                <button onclick="toggleTheme()" class="theme-btn">🌓</button>
+                <button onclick="exportRiwayat()" class="export-btn">📥 Export</button>
+                <button onclick="refreshData()" class="refresh-btn">🔄</button>
+            </div>
+        </header>
+
+        <!-- STATISTIK -->
+        <section class="stats">
+            <div class="card stat">
+                <p>📋 Total Konsultasi</p>
+                <h2 id="totalRiwayat">15</h2>
+            </div>
+            <div class="card stat">
+                <p>✅ Selesai</p>
+                <h2 id="selesaiRiwayat">10</h2>
+            </div>
+            <div class="card stat">
+                <p>📅 Bulan Ini</p>
+                <h2 id="bulanIniRiwayat">5</h2>
+            </div>
+            <div class="card stat">
+                <p>👨‍🎓 Mahasiswa</p>
+                <h2 id="mahasiswaRiwayat">8</h2>
+            </div>
+        </section>
+
+        <!-- FILTER -->
+        <div class="filter-section">
+            <div class="card filter-card">
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label for="filterStatusRiwayat">Status</label>
+                        <select id="filterStatusRiwayat" class="form-control" onchange="applyRiwayatFilter()">
+                            <option value="semua">Semua Status</option>
+                            <option value="selesai">✅ Selesai</option>
+                            <option value="disetujui">✅ Disetujui</option>
+                            <option value="ditolak">❌ Ditolak</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filterKategoriRiwayat">Kategori</label>
+                        <select id="filterKategoriRiwayat" class="form-control" onchange="applyRiwayatFilter()">
+                            <option value="semua">Semua Kategori</option>
+                            <option value="akademik">📚 Akademik</option>
+                            <option value="non-akademik">🎯 Non-Akademik</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="searchRiwayatDosen">Cari</label>
+                        <input type="text" id="searchRiwayatDosen" class="form-control" placeholder="Cari mahasiswa atau judul..." oninput="applyRiwayatFilter()">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIWAYAT LIST -->
+        <section class="riwayat-section">
+            <div class="card riwayat-card">
+                <div class="riwayat-header">
+                    <h3>Daftar Riwayat Konsultasi</h3>
+                    <span class="total-count" id="totalCount">0 konsultasi</span>
+                </div>
+                <div id="riwayatListDosen">
+                    <!-- Diisi oleh JavaScript -->
+                    <div class="empty-state" id="emptyState">
+                        <div class="empty-icon">📋</div>
+                        <h4>Belum Ada Riwayat</h4>
+                        <p>Belum ada riwayat konsultasi yang tersedia.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+<script src="riwayat-dosen.js"></script>
+
+</body>
+</html>

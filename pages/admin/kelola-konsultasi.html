@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Konsultasi | Narasa</title>
+
+    <link rel="stylesheet" href="kelola-konsultasi.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <h2>NARASA</h2>
+                <span>Admin</span>
+            </div>
+            <button class="close-sidebar" onclick="toggleSidebar()">✕</button>
+        </div>
+
+        <nav class="menu">
+            <a href="admin-dashboard.html">📊 Dashboard</a>
+            <a href="kelola-mahasiswa.html">👨‍🎓 Kelola Mahasiswa</a>
+            <a href="kelola-dosen.html">👨‍🏫 Kelola Dosen</a>
+            <a href="#" class="active">📋 Kelola Konsultasi</a>
+            <a href="laporan.html">📈 Laporan</a>
+            <a href="pengaturan.html">⚙️ Pengaturan</a>
+            <a href="admin-profil.html">👤 Profil</a>
+            <a href="../../index.html" onclick="logout()">🚪 Logout</a>
+        </nav>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="hamburger" onclick="toggleSidebar()">☰</button>
+                <div>
+                    <h1>📋 Kelola Konsultasi</h1>
+                    <p id="namaAdmin">Administrator</p>
+                </div>
+            </div>
+            <div class="topbar-actions">
+                <button onclick="toggleTheme()" class="theme-btn">🌓</button>
+                <button onclick="exportKonsultasi()" class="export-btn">📥 Export</button>
+                <button onclick="refreshData()" class="refresh-btn">🔄</button>
+            </div>
+        </header>
+
+        <!-- STATISTIK -->
+        <section class="stats">
+            <div class="card stat">
+                <p>📋 Total Konsultasi</p>
+                <h2 id="totalKonsultasi">89</h2>
+            </div>
+            <div class="card stat">
+                <p>⏳ Menunggu</p>
+                <h2 id="menungguKonsultasi">12</h2>
+            </div>
+            <div class="card stat">
+                <p>✅ Disetujui</p>
+                <h2 id="disetujuiKonsultasi">45</h2>
+            </div>
+            <div class="card stat">
+                <p>📌 Selesai</p>
+                <h2 id="selesaiKonsultasi">32</h2>
+            </div>
+        </section>
+
+        <!-- FILTER -->
+        <div class="filter-section">
+            <div class="card filter-card">
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label for="filterStatusKonsul">Status</label>
+                        <select id="filterStatusKonsul" class="form-control" onchange="applyFilterKonsul()">
+                            <option value="semua">Semua Status</option>
+                            <option value="pending">⏳ Menunggu</option>
+                            <option value="disetujui">✅ Disetujui</option>
+                            <option value="selesai">📌 Selesai</option>
+                            <option value="ditolak">❌ Ditolak</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filterKategoriKonsul">Kategori</label>
+                        <select id="filterKategoriKonsul" class="form-control" onchange="applyFilterKonsul()">
+                            <option value="semua">Semua Kategori</option>
+                            <option value="akademik">📚 Akademik</option>
+                            <option value="non-akademik">🎯 Non-Akademik</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="searchKonsul">Cari</label>
+                        <input type="text" id="searchKonsul" class="form-control" placeholder="Cari mahasiswa atau dosen..." oninput="applyFilterKonsul()">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DAFTAR KONSULTASI -->
+        <section class="konsultasi-section">
+            <div class="card konsultasi-card">
+                <div class="konsultasi-header">
+                    <h3>Daftar Konsultasi</h3>
+                    <span class="total-count" id="totalCount">0 konsultasi</span>
+                </div>
+                <div id="konsultasiList">
+                    <!-- Diisi oleh JavaScript -->
+                    <div class="empty-state" id="emptyState">
+                        <div class="empty-icon">📋</div>
+                        <h4>Belum Ada Konsultasi</h4>
+                        <p>Belum ada data konsultasi yang terdaftar.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+<script src="kelola-konsultasi.js"></script>
+
+</body>
+</html>

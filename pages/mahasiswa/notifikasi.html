@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifikasi | Narasa</title>
+
+    <link rel="stylesheet" href="notifikasi.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <h2>NARASA</h2>
+                <span>Mahasiswa</span>
+            </div>
+            <button class="close-sidebar" onclick="toggleSidebar()">✕</button>
+        </div>
+
+        <nav class="menu">
+            <a href="mahasiswa-dashboard.html">📊 Dashboard</a>
+            <a href="pengajuan.html">📝 Ajukan Konsultasi</a>
+            <a href="riwayat.html">📋 Riwayat Konsultasi</a>
+            <a href="#" class="active">🔔 Notifikasi</a>
+            <a href="profil.html">👤 Profil</a>
+            <a href="../../index.html" onclick="logout()">🚪 Logout</a>
+        </nav>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="hamburger" onclick="toggleSidebar()">☰</button>
+                <div>
+                    <h1>🔔 Notifikasi</h1>
+                    <p id="namaMahasiswa">User</p>
+                </div>
+            </div>
+            <div class="topbar-actions">
+                <button onclick="toggleTheme()" class="theme-btn">🌓</button>
+                <button onclick="markAllRead()" class="mark-read-btn">✅ Tandai Semua Dibaca</button>
+                <button onclick="clearAllNotifications()" class="clear-btn">🗑️ Bersihkan</button>
+            </div>
+        </header>
+
+        <!-- NOTIFIKASI LIST -->
+        <section class="notifikasi-section">
+            <div class="card notifikasi-card">
+                <div class="notifikasi-header">
+                    <h3>Daftar Notifikasi</h3>
+                    <span class="total-count" id="totalCount">0 notifikasi</span>
+                </div>
+                <div id="notifikasiList">
+                    <!-- Diisi oleh JavaScript -->
+                    <div class="empty-state" id="emptyState">
+                        <div class="empty-icon">🔔</div>
+                        <h4>Belum Ada Notifikasi</h4>
+                        <p>Anda tidak memiliki notifikasi saat ini.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+<script src="notifikasi.js"></script>
+
+</body>
+</html>

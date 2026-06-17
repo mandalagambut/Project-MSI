@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan | Narasa</title>
+
+    <link rel="stylesheet" href="laporan.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <h2>NARASA</h2>
+                <span>Admin</span>
+            </div>
+            <button class="close-sidebar" onclick="toggleSidebar()">✕</button>
+        </div>
+
+        <nav class="menu">
+            <a href="admin-dashboard.html">📊 Dashboard</a>
+            <a href="kelola-mahasiswa.html">👨‍🎓 Kelola Mahasiswa</a>
+            <a href="kelola-dosen.html">👨‍🏫 Kelola Dosen</a>
+            <a href="kelola-konsultasi.html">📋 Kelola Konsultasi</a>
+            <a href="#" class="active">📈 Laporan</a>
+            <a href="pengaturan.html">⚙️ Pengaturan</a>
+            <a href="admin-profil.html">👤 Profil</a>
+            <a href="../../index.html" onclick="logout()">🚪 Logout</a>
+        </nav>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="hamburger" onclick="toggleSidebar()">☰</button>
+                <div>
+                    <h1>📈 Laporan</h1>
+                    <p id="namaAdmin">Administrator</p>
+                </div>
+            </div>
+            <div class="topbar-actions">
+                <button onclick="toggleTheme()" class="theme-btn">🌓</button>
+                <button onclick="printLaporan()" class="export-btn">🖨️ Print</button>
+                <button onclick="exportLaporan()" class="export-btn">📥 Export PDF</button>
+            </div>
+        </header>
+
+        <!-- STATISTIK -->
+        <section class="stats">
+            <div class="card stat">
+                <p>👨‍🎓 Total Mahasiswa</p>
+                <h2 id="totalMhs">156</h2>
+            </div>
+            <div class="card stat">
+                <p>👨‍🏫 Total Dosen</p>
+                <h2 id="totalDsn">24</h2>
+            </div>
+            <div class="card stat">
+                <p>📋 Total Konsultasi</p>
+                <h2 id="totalKonsul">89</h2>
+            </div>
+            <div class="card stat">
+                <p>📌 Konsultasi Selesai</p>
+                <h2 id="selesaiKonsul">32</h2>
+            </div>
+        </section>
+
+        <!-- GRAFIK -->
+        <section class="laporan-grid">
+            <div class="card chart-card">
+                <h3>📊 Statistik Konsultasi per Status</h3>
+                <div class="chart-container-large">
+                    <canvas id="statusChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card chart-card">
+                <h3>📊 Statistik Konsultasi per Kategori</h3>
+                <div class="chart-container-large">
+                    <canvas id="kategoriChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card chart-card">
+                <h3>📊 Tren Konsultasi per Bulan</h3>
+                <div class="chart-container-large">
+                    <canvas id="trenChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card chart-card">
+                <h3>📊 Distribusi Mahasiswa per Program Studi</h3>
+                <div class="chart-container-large">
+                    <canvas id="programChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- DATA TERBARU -->
+        <section class="laporan-data">
+            <div class="card data-card">
+                <h3>📋 Data Konsultasi Terbaru</h3>
+                <div id="latestKonsultasi">
+                    <!-- Diisi oleh JavaScript -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+<script src="laporan.js"></script>
+
+</body>
+</html>

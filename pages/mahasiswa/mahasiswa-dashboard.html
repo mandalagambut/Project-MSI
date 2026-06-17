@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Mahasiswa | Narasa</title>
+
+    <link rel="stylesheet" href="mahasiswa-dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <h2>NARASA</h2>
+                <span>Mahasiswa</span>
+            </div>
+            <button class="close-sidebar" onclick="toggleSidebar()">✕</button>
+        </div>
+
+        <nav class="menu">
+            <a href="#" class="active">📊 Dashboard</a>
+            <a href="pengajuan.html">📝 Ajukan Konsultasi</a>
+            <a href="riwayat.html">📋 Riwayat Konsultasi</a>
+            <a href="notifikasi.html">🔔 Notifikasi</a>
+            <a href="profil.html">👤 Profil</a>
+            <a href="../../index.html" onclick="logout()">🚪 Logout</a>
+        </nav>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="hamburger" onclick="toggleSidebar()">☰</button>
+                <div>
+                    <h1>Dashboard Mahasiswa</h1>
+                    <p id="namaMahasiswa">User</p>
+                </div>
+            </div>
+            <div class="topbar-actions">
+                <button onclick="toggleTheme()" class="theme-btn">🌓</button>
+                <button onclick="refreshData()" class="refresh-btn" title="Refresh Data">🔄</button>
+            </div>
+        </header>
+
+        <!-- PROGRESS KONSULTASI -->
+        <section class="progress-section">
+            <div class="card progress-card">
+                <div class="progress-header">
+                    <div>
+                        <h3>📈 Progress Konsultasi Akademik</h3>
+                        <p>Pantau perkembangan proses konsultasi Anda</p>
+                    </div>
+                    <span class="progress-status" id="progressStatus">Konsultasi Berlangsung</span>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-bar-container">
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-bar" id="progressBar" style="width: 65%;">
+                            <span class="progress-text">65%</span>
+                        </div>
+                    </div>
+                    <div class="progress-steps-text">
+                        <span>Pengajuan</span>
+                        <span>Disetujui</span>
+                        <span>Jadwal</span>
+                        <span>Konsultasi</span>
+                        <span>Selesai</span>
+                    </div>
+                </div>
+
+                <!-- Detail Progress -->
+                <div class="progress-details">
+                    <div class="progress-detail-item">
+                        <span class="detail-label">Total Konsultasi</span>
+                        <span class="detail-value" id="totalKonsultasi">8</span>
+                    </div>
+                    <div class="progress-detail-item">
+                        <span class="detail-label">✅ Selesai</span>
+                        <span class="detail-value" id="selesaiKonsultasi">4</span>
+                    </div>
+                    <div class="progress-detail-item">
+                        <span class="detail-label">🔄 Berlangsung</span>
+                        <span class="detail-value" id="berlangsungKonsultasi">2</span>
+                    </div>
+                    <div class="progress-detail-item">
+                        <span class="detail-label">⏳ Menunggu</span>
+                        <span class="detail-value" id="menungguKonsultasi">2</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DASHBOARD GRID -->
+        <section class="dashboard-grid">
+
+            <!-- KALENDER -->
+            <div class="card">
+                <h3>📅 Kalender Konsultasi</h3>
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <button onclick="prevMonth()">‹</button>
+                        <span id="calendarMonth">Juni 2026</span>
+                        <button onclick="nextMonth()">›</button>
+                    </div>
+                    
+                    <div class="calendar-weekdays">
+                        <div class="calendar-weekday">Min</div>
+                        <div class="calendar-weekday">Sen</div>
+                        <div class="calendar-weekday">Sel</div>
+                        <div class="calendar-weekday">Rab</div>
+                        <div class="calendar-weekday">Kam</div>
+                        <div class="calendar-weekday">Jum</div>
+                        <div class="calendar-weekday">Sab</div>
+                    </div>
+                    
+                    <div class="calendar-days-grid" id="calendarDays"></div>
+                    
+                    <div class="calendar-legend">
+                        <span class="legend-item">
+                            <span class="legend-dot" style="background: #14b8a6;"></span>
+                            Ada Konsultasi
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-dot" style="background: #fef3c7;"></span>
+                            Menunggu
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-dot" style="background: var(--primary); border: 2px solid var(--primary);"></span>
+                            Hari Ini
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INFORMASI KONSULTASI -->
+            <div class="card">
+                <h3>ℹ️ Informasi Konsultasi</h3>
+                <div class="info-item">
+                    <div class="info-icon">📚</div>
+                    <div class="info-content">
+                        <h4>Konsultasi Terakhir</h4>
+                        <p>Media Pembelajaran Digital</p>
+                        <span class="info-date">15 Juni 2026</span>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">📝</div>
+                    <div class="info-content">
+                        <h4>Pengajuan Aktif</h4>
+                        <p>E-Learning</p>
+                        <span class="info-date">Diajukan: 17 Juni 2026</span>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">👨‍🏫</div>
+                    <div class="info-content">
+                        <h4>Dosen Pembimbing</h4>
+                        <p>Dosen, M.Pd.</p>
+                        <span class="info-date">Media Pembelajaran</span>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">⏰</div>
+                    <div class="info-content">
+                        <h4>Konsultasi Berikutnya</h4>
+                        <p>20 Juni 2026 • 09:00 WIB</p>
+                        <span class="info-date">Dalam 2 hari</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RINGKASAN KONSULTASI -->
+            <div class="card wide">
+                <h3>📊 Ringkasan Konsultasi</h3>
+                <div class="summary-charts">
+                    <div class="summary-chart">
+                        <h4>Status Konsultasi</h4>
+                        <div class="pie-chart-container">
+                            <div class="pie-chart" id="pieChart">
+                                <div class="pie-segment" style="--percentage: 50%; --color: #14b8a6;"></div>
+                                <div class="pie-segment" style="--percentage: 25%; --color: #fef3c7;"></div>
+                                <div class="pie-segment" style="--percentage: 25%; --color: #dcfce7;"></div>
+                            </div>
+                            <div class="pie-legend">
+                                <span><span class="legend-color" style="background: #14b8a6;"></span> Selesai (50%)</span>
+                                <span><span class="legend-color" style="background: #fef3c7;"></span> Menunggu (25%)</span>
+                                <span><span class="legend-color" style="background: #dcfce7;"></span> Berlangsung (25%)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="summary-chart">
+                        <h4>Kategori Konsultasi</h4>
+                        <div class="category-list">
+                            <div class="category-item">
+                                <span class="category-name">Media Pembelajaran</span>
+                                <div class="category-bar">
+                                    <div class="category-bar-fill" style="width: 40%; background: #14b8a6;"></div>
+                                </div>
+                                <span class="category-count">4</span>
+                            </div>
+                            <div class="category-item">
+                                <span class="category-name">E-Learning</span>
+                                <div class="category-bar">
+                                    <div class="category-bar-fill" style="width: 25%; background: #0f766e;"></div>
+                                </div>
+                                <span class="category-count">2</span>
+                            </div>
+                            <div class="category-item">
+                                <span class="category-name">Desain Pembelajaran</span>
+                                <div class="category-bar">
+                                    <div class="category-bar-fill" style="width: 25%; background: #0891b2;"></div>
+                                </div>
+                                <span class="category-count">2</span>
+                            </div>
+                            <div class="category-item">
+                                <span class="category-name">Evaluasi Pembelajaran</span>
+                                <div class="category-bar">
+                                    <div class="category-bar-fill" style="width: 10%; background: #059669;"></div>
+                                </div>
+                                <span class="category-count">1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="mahasiswa-dashboard.js"></script>
+
+</body>
+</html>

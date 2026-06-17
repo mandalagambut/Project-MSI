@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - NARASA</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="asset/css/login.css">
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<div class="container">
+
+  <div class="hero">
+
+    <div class="badge">
+      ● Sistem Konsultasi Akademik Digital
+    </div>
+
+    <h1>
+      Navigasi dan Arahan Akademik
+    </h1>
+
+    <p>
+      Platform digital untuk mengatur jadwal konsultasi, pengajuan bimbingan akademik, dan monitoring aktivitas mahasiswa teknologi pendidikan secara lebih terstruktur, modern, serta efisien.
+    </p>
+
+    <div class="feature-grid">
+
+      <div class="feature-card">
+        <h3>Dashboard Akademik</h3>
+        <p>Monitoring aktivitas konsultasi secara real-time dengan tampilan modern.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Kalender Otomatis</h3>
+        <p>Pengaturan jadwal konsultasi lebih rapi dan terorganisir.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Pengajuan Digital</h3>
+        <p>Mahasiswa dapat mengirim pengajuan konsultasi secara online.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>UI Modern</h3>
+        <p>Desain minimalis dan modern.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="login-box">
+
+    <div class="logo">
+    <img src="asset/icons/tp.png" alt="Logo TP Consult">
+    </div>
+
+    <h2>Masuk</h2>
+
+    <p>
+      Login menggunakan akun mahasiswa atau dosen.
+    </p>
+
+    <div class="form-group">
+      <label>Pengguna</label>
+
+      <select id="role">
+        <option>Mahasiswa</option>
+        <option>Dosen</option>
+        <option>Admin</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>NIM atau NIP</label>
+
+      <input
+      type="number"
+      id="username"
+      placeholder="Masukkan akun">
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+
+      <input
+      type="password"
+      id="password"
+      placeholder="Masukkan password">
+    </div>
+
+    <div class="login-options">
+
+      <div class="remember">
+        <input type="checkbox">
+        <span>Ingat Saya</span>
+      </div>
+
+      <a href="pages/forgot-password.html"
+      class="forgot">
+      Lupa Password?
+      </a>
+
+    </div>
+
+    <button
+    class="btn-login"
+    onclick="login()">
+
+      Masuk Dashboard
+
+    </button>
+
+    <div class="footer-text">
+      © 2026 NARASA System
+    </div>
+
+  </div>
+
+</div>
+
+<script src="asset/js/auth.js"></script>
+
+</body>
+</html>

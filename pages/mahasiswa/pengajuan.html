@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajukan Konsultasi | Narasa</title>
+
+    <link rel="stylesheet" href="pengajuan.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <h2>NARASA</h2>
+                <span>Mahasiswa</span>
+            </div>
+            <button class="close-sidebar" onclick="toggleSidebar()">✕</button>
+        </div>
+
+        <nav class="menu">
+            <a href="mahasiswa-dashboard.html">📊 Dashboard</a>
+            <a href="#" class="active">📝 Ajukan Konsultasi</a>
+            <a href="riwayat.html">📋 Riwayat Konsultasi</a>
+            <a href="notifikasi.html">🔔 Notifikasi</a>
+            <a href="profil.html">👤 Profil</a>
+            <a href="../../index.html" onclick="logout()">🚪 Logout</a>
+        </nav>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="hamburger" onclick="toggleSidebar()">☰</button>
+                <div>
+                    <h1>📝 Ajukan Konsultasi</h1>
+                    <p id="namaMahasiswa">User</p>
+                </div>
+            </div>
+            <div class="topbar-actions">
+                <button onclick="toggleTheme()" class="theme-btn">🌓</button>
+            </div>
+        </header>
+
+        <!-- FORM PENGAJUAN -->
+        <section class="pengajuan-section">
+            <div class="card pengajuan-card">
+                <h3>Formulir Pengajuan Konsultasi</h3>
+                <p class="subtitle">Isi formulir di bawah ini untuk mengajukan konsultasi dengan dosen</p>
+
+                <form id="pengajuanForm" class="pengajuan-form">
+                    <!-- Row 1: Semester & Kategori -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="semester">Semester Saat Ini <span class="required">*</span></label>
+                            <select id="semester" class="form-control" required>
+                                <option value="">Pilih Semester</option>
+                                <option value="1">Semester 1</option>
+                                <option value="2">Semester 2</option>
+                                <option value="3">Semester 3</option>
+                                <option value="4">Semester 4</option>
+                                <option value="5">Semester 5</option>
+                                <option value="6">Semester 6</option>
+                                <option value="7">Semester 7</option>
+                                <option value="8">Semester 8</option>
+                            </select>
+                            <small class="form-text">💡 Pilih semester Anda saat ini untuk melihat opsi konsultasi yang tersedia</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="kategori">Kategori Konsultasi <span class="required">*</span></label>
+                            <select id="kategori" class="form-control" required>
+                                <option value="">Pilih Kategori</option>
+                                <option value="akademik">📚 Akademik</option>
+                                <option value="non-akademik">🎯 Non-Akademik</option>
+                            </select>
+                            <small class="form-text">💡 Pilih kategori konsultasi yang Anda butuhkan</small>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Jenis Konsultasi (Dynamic) -->
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label>Jenis Konsultasi <span class="required">*</span></label>
+                            <div id="jenisContainer">
+                                <div class="jenis-placeholder" id="jenisPlaceholder">
+                                    <div class="placeholder-icon">📋</div>
+                                    <p>Silakan pilih <strong>Semester</strong> dan <strong>Kategori</strong> terlebih dahulu</p>
+                                    <small>Pilihan jenis konsultasi akan muncul secara otomatis</small>
+                                </div>
+                                <div id="jenisOptions" style="display: none;"></div>
+                            </div>
+                            <small class="form-text" id="jenisInfo">💡 Pilih salah satu jenis konsultasi yang tersedia</small>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Dosen & Tanggal -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dosen">Dosen <span class="required">*</span></label>
+                            <select id="dosen" class="form-control" required disabled>
+                                <option value="">Pilih Jenis Konsultasi Terlebih Dahulu</option>
+                            </select>
+                            <small class="form-text">💡 Dosen akan menyesuaikan dengan jenis konsultasi yang dipilih</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="tanggal">Tanggal Konsultasi <span class="required">*</span></label>
+                            <input type="date" id="tanggal" class="form-control" required min="">
+                            <small class="form-text">💡 Pilih tanggal konsultasi yang diinginkan</small>
+                        </div>
+                    </div>
+
+                    <!-- Row 4: Waktu & Ruangan -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="waktu">Waktu Konsultasi <span class="required">*</span></label>
+                            <select id="waktu" class="form-control" required>
+                                <option value="">Pilih Waktu</option>
+                                <option value="07:00">07:00 - 07:30 WIB</option>
+                                <option value="07:30">07:30 - 08:00 WIB</option>
+                                <option value="08:00">08:00 - 08:30 WIB</option>
+                                <option value="08:30">08:30 - 09:00 WIB</option>
+                                <option value="09:00">09:00 - 09:30 WIB</option>
+                                <option value="09:30">09:30 - 10:00 WIB</option>
+                                <option value="10:00">10:00 - 10:30 WIB</option>
+                                <option value="10:30">10:30 - 11:00 WIB</option>
+                                <option value="11:00">11:00 - 11:30 WIB</option>
+                                <option value="13:00">13:00 - 13:30 WIB</option>
+                                <option value="13:30">13:30 - 14:00 WIB</option>
+                                <option value="14:00">14:00 - 14:30 WIB</option>
+                                <option value="14:30">14:30 - 15:00 WIB</option>
+                                <option value="15:00">15:00 - 15:30 WIB</option>
+                                <option value="15:30">15:30 - 16:00 WIB</option>
+                            </select>
+                            <small class="form-text">💡 Pilih waktu yang tersedia</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="ruangan">Ruangan / Lokasi</label>
+                            <select id="ruangan" class="form-control">
+                                <option value="Ruang 101 (Gedung A)">Ruang 101 (Gedung A)</option>
+                                <option value="Ruang 102 (Gedung A)">Ruang 102 (Gedung A)</option>
+                                <option value="Ruang 103 (Gedung A)">Ruang 103 (Gedung A)</option>
+                                <option value="Ruang 201 (Gedung B)">Ruang 201 (Gedung B)</option>
+                                <option value="Ruang 202 (Gedung B)">Ruang 202 (Gedung B)</option>
+                                <option value="Ruang 203 (Gedung B)">Ruang 203 (Gedung B)</option>
+                                <option value="Ruang 301 (Gedung C)">Ruang 301 (Gedung C)</option>
+                                <option value="Online (Zoom Meeting)">Online (Zoom Meeting)</option>
+                                <option value="Online (Google Meet)">Online (Google Meet)</option>
+                            </select>
+                            <small class="form-text">💡 Pilih ruangan atau lokasi konsultasi</small>
+                        </div>
+                    </div>
+
+                    <!-- Row 5: Deskripsi -->
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="deskripsi">Deskripsi / Topik Konsultasi <span class="required">*</span></label>
+                            <textarea id="deskripsi" class="form-control" rows="4" placeholder="Jelaskan secara detail topik yang ingin Anda konsultasikan..." required></textarea>
+                            <small class="form-text">💡 Semakin detail deskripsi, semakin mudah dosen memahami kebutuhan Anda</small>
+                        </div>
+                    </div>
+
+                    <!-- Row 6: Lampiran -->
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="lampiran">Lampiran (Opsional)</label>
+                            <input type="file" id="lampiran" class="form-control" accept=".pdf,.doc,.docx,.jpg,.png,.zip">
+                            <small class="form-text">📎 Format: PDF, DOC, DOCX, JPG, PNG, ZIP (Max 5MB)</small>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="form-actions">
+                        <button type="reset" class="btn-reset">🔄 Reset Form</button>
+                        <button type="submit" class="btn-submit">📤 Ajukan Konsultasi</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- INFORMASI PENGAJUAN -->
+            <div class="card info-card">
+                <h3>ℹ️ Informasi Pengajuan</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-icon">⏳</div>
+                        <div class="info-content">
+                            <h4>Proses Verifikasi</h4>
+                            <p>Pengajuan akan diproses dalam 1x24 jam</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">📋</div>
+                        <div class="info-content">
+                            <h4>Dokumen Pendukung</h4>
+                            <p>Siapkan dokumen jika diperlukan</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">📅</div>
+                        <div class="info-content">
+                            <h4>Jadwal Konsultasi</h4>
+                            <p>Jadwal akan dikonfirmasi oleh dosen</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">🔔</div>
+                        <div class="info-content">
+                            <h4>Notifikasi</h4>
+                            <p>Anda akan mendapat notifikasi via email</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+<script src="pengajuan.js"></script>
+
+</body>
+</html>
